@@ -15,6 +15,7 @@ class App2 extends React.Component {
 
 	// React lifecycle methods
 	componentWillMount() {
+		// make ajax call to api, store results as items and set state, and map over this array below
 		fetch('https://swapi.co/api/people/?format=json')
 			.then(response => response.json())
 			.then(({results: items}) => this.setState({items}))
@@ -25,9 +26,8 @@ class App2 extends React.Component {
 		this.setState({filter: e.target.value})
 	};
 
-
-
 	render() {
+		// create person component 
 		const Person = (props) => <h4>{props.person.name}</h4>
 
 		let items = this.state.items;
@@ -37,11 +37,12 @@ class App2 extends React.Component {
 				item.name.toLowerCase()
 					.includes(this.state.filter.toLowerCase()))
 		}
-
+//  Map over items array and give key
 		return (
 			<div>
 				<input type="text"
 					onChange={this.filter} />
+					
 				{items.map(item =>
 					<Person key={item.name} person={item} />)}
 			</div>
